@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "polihair": {
+      "type": "http",
+      "url": "https://polihair.vercel.app/api/mcp"
+    }
+  }
+}

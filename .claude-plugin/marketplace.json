@@ -1,0 +1,21 @@
+{
+  "name": "mrs-curly",
+  "owner": {
+    "name": "fercracix33"
+  },
+  "description": "Plugins de Mrs Curly para la app de Claude y Claude Code. Instala mrs-curly-work y recibe las versiones nuevas desde este origen sin volver a subir archivos.",
+  "plugins": [
+    {
+      "name": "mrs-curly-work",
+      "source": "./plugins/mrs-curly-work",
+      "description": "Agenda, clientas, bandeja, finanzas, inventario y equipo del salón con siete skills y el MCP remoto de poliHair (OAuth individual).",
+      "category": "productivity",
+      "tags": [
+        "peluqueria",
+        "agenda",
+        "crm",
+        "mcp"
+      ]
+    }
+  ]
+}
