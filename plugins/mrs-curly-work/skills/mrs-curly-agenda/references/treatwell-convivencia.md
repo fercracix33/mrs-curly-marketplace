@@ -597,7 +597,7 @@ Cómo usar el resultado:
 
 ## Puesta al día eventual
 
-Cuando se pida «pasa a poliHair las citas de Treatwell de tal semana», acota la tarea por semana y profesional, lee las citas con el script (campo `busy` de cada día y, si hace falta, el detalle de la cita en la interfaz para la clienta) y crea en poliHair solo las que falten según `calendar_get_day`. Un repaso repetido no duplica: poliHair rechaza dos citas confirmadas de la misma profesional en el mismo tramo.
+Cuando se pida «pasa a poliHair las citas de Treatwell de tal semana», acota la tarea por semana y profesional, lee las citas con el script (campo `busy` de cada día y, si hace falta, el detalle de la cita en la interfaz para la clienta) resuelve todas las clientas de la semana con una sola llamada a `clients_resolve` (teléfonos o nombres completos), crea las fichas que falten y después crea en poliHair solo las citas que falten según `calendar_get_day`, con `operations_batch` si son muchas. Un repaso repetido no duplica: poliHair rechaza dos citas confirmadas de la misma profesional en el mismo tramo.
 
 ## Límites
 

@@ -1,12 +1,18 @@
 {
   "name": "mrs-curly-work",
   "displayName": "Mrs Curly",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Agenda, clientas, bandeja, finanzas, inventario y equipo de Mrs Curly: siete skills y el MCP remoto de poliHair con autorización OAuth individual.",
   "author": {
     "name": "fercracix33"
   },
   "homepage": "https://polihair.vercel.app",
   "repository": "https://github.com/fercracix33/polihair",
-  "keywords": ["peluqueria", "agenda", "crm", "mcp", "treatwell"]
+  "keywords": [
+    "peluqueria",
+    "agenda",
+    "crm",
+    "mcp",
+    "treatwell"
+  ]
 }

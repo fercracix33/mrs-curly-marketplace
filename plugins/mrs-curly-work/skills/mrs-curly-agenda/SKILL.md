@@ -7,7 +7,7 @@ description: "Consultar y gestionar citas, disponibilidad, lista de espera y fic
 
 Aplica [el contrato común](references/operacion.md).
 
-- Busca por nombre u otro dato aportado con `clients_search`; resuelve coincidencias antes de usar `client_get`. Lee perfil capilar e historial cuando afecten al servicio solicitado.
+- Busca por nombre u otro dato aportado con `clients_search`; resuelve coincidencias antes de usar `client_get`. Para varias personas a la vez (una lista de citas, una puesta al día) usa `clients_resolve` con todos los teléfonos o nombres en una sola llamada y trata por separado las entradas con 0 o con varias coincidencias; no repitas `clients_search` por cada una. Lee perfil capilar e historial cuando afecten al servicio solicitado.
 - Para un día usa `calendar_get_day`; para un periodo `calendar_get_range`, cuyo máximo es 62 días inclusive. Amplía por intervalos si se pide un periodo mayor.
 - Usa `services_list` o `service_get` para identificar variante y duración; consulta `availability_find` o `availability_search` con los IDs vigentes. Un hueco visual no demuestra disponibilidad: hay horarios, ausencias, bloqueos y dependencias.
 - Reutiliza literalmente los IDs devueltos; si puedes conservar resultados en variables, extrae el ID de la variante elegida en vez de reescribir el UUID. Nunca reconstruyas un ID de memoria. Ante `VARIANT_UNAVAILABLE` (o el antiguo `NOT_FOUND` de variante), relee el servicio y repite una vez con su ID activo exacto. Si persiste, consulta a la usuaria. Ese error no significa «sin huecos».
