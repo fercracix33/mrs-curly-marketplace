@@ -25,6 +25,18 @@ Ejemplo: si falla la consulta del segundo servicio de color + definición, revis
 
 `reply_proposal_create` guarda una propuesta y necesita clave idempotente. `reply_proposal_save` permite editarla como draft o pending_approval. Preparar un borrador no implica aprobarlo. Usa las herramientas de aprobación solo cuando esa decisión esté autorizada; aprobar tampoco entrega el mensaje.
 
+## Borradores verificados
+
+Cada compromiso de un borrador (hueco, precio, horario) necesita evidencia emitida por el servidor; el texto se compara con ella automáticamente.
+
+- Hueco: llama a `availability_search` con `conversationId` y cita el `offerId` elegido en `claims: [{type: "slot", offerId}]`. Para mover una cita usa `booking_propose_reschedule` con `conversationId` y `{type: "booking_move", bookingId, offerId}`. No escribas una hora, día o profesional que no venga de una oferta.
+- Precio o duración: `{type: "price", variantId}` con el ID exacto del catálogo. Horario del salón: `{type: "hours"}`.
+- Si has leído Treatwell para ese hueco, indica `treatwellCheckedAt` con la hora real de la lectura; nunca la declares sin haberla hecho.
+- Si la conversación necesita criterio humano (clienta molesta, petición fuera de lo normal, cambio de servicio o precio), añade `needsDecisionReason`. Puedes pedir decisión; no puedes declarar un borrador listo.
+- Cuando la clienta acepta un hueco ya ofrecido, guarda un borrador `kind: "booking_confirmation"` con esa única claim. Aprobarlo crea o mueve la cita y envía el texto; no crees la reserva por separado.
+- `reply_proposal_create`/`reply_proposal_save` devuelven `review` (ok, warn, block). Corrige los avisos antes de dar el borrador por bueno: `reply_proposal_fix` aplica el precio del catálogo, busca el siguiente hueco libre o guarda el borrador hasta que la clienta escriba. `reply_proposals_review` lista la cola con las comprobaciones vivas.
+- `reply_proposal_send` aprueba y ejecuta un borrador en nivel ok. Úsalo solo con autorización explícita de envío; revalida todo y no duplica cita ni mensaje al reintentar.
+
 Consulta `delivery` en `conversation_get`: modo demo/real, ventana, bloqueo y envío pendiente. `message_send` elige el transporte del chat; las herramientas terminadas en `_demo` solo simulan y rechazan chats reales. Un resultado `accepted` confirma aceptación por Meta, no entrega o lectura; `queued` y `uncertain` tampoco son entregados. Consulta `message_get_delivery` para confirmar el estado. Nunca interpretes un error de lectura como un envío correcto.
 
 Fuera de las 24 horas, WhatsApp exige `message_send_template` con una plantilla habilitada y evidencia real del consentimiento; puede tener coste. Instagram requiere un nuevo mensaje de la clienta. No inventes consentimiento, plantillas ni una ventana abierta. Para adjuntos reales usa `message_attachment_upload` (hasta 3 MB) y pasa el `mediaId` a `message_send`: un archivo por mensaje, sin texto simultáneo. Los adjuntos demo son metadatos.
