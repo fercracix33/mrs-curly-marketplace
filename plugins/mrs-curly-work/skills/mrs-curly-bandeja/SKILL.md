@@ -31,7 +31,7 @@ Cada compromiso de un borrador (hueco, precio, horario) necesita evidencia emiti
 
 - Hueco: llama a `availability_search` con `conversationId` y cita el `offerId` elegido en `claims: [{type: "slot", offerId}]`. Para mover una cita usa `booking_propose_reschedule` con `conversationId` y `{type: "booking_move", bookingId, offerId}`. No escribas una hora, día o profesional que no venga de una oferta.
 - Precio o duración: `{type: "price", variantId}` con el ID exacto del catálogo. Horario del salón: `{type: "hours"}`.
-- Si has leído Treatwell para ese hueco, indica `treatwellCheckedAt` con la hora real de la lectura; nunca la declares sin haberla hecho.
+- Con el conector de Treatwell conectado, `availability_search` ya lee Treatwell en directo y aprobar una confirmación reserva allí. Solo sin conector: si has leído Treatwell para ese hueco, indica `treatwellCheckedAt` con la hora real de la lectura; nunca la declares sin haberla hecho.
 - Si la conversación necesita criterio humano (clienta molesta, petición fuera de lo normal, cambio de servicio o precio), añade `needsDecisionReason`. Puedes pedir decisión; no puedes declarar un borrador listo.
 - Cuando la clienta acepta un hueco ya ofrecido, guarda un borrador `kind: "booking_confirmation"` con esa única claim. Aprobarlo crea o mueve la cita y envía el texto; no crees la reserva por separado.
 - `reply_proposal_create`/`reply_proposal_save` devuelven `review` (ok, warn, block). Corrige los avisos antes de dar el borrador por bueno: `reply_proposal_fix` aplica el precio del catálogo, busca el siguiente hueco libre o guarda el borrador hasta que la clienta escriba. `reply_proposals_review` lista la cola con las comprobaciones vivas.

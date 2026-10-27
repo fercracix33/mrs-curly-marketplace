@@ -1,5 +1,7 @@
 # Convivencia con Treatwell: huecos y registro en los dos sistemas
 
+> Solo para cuando `treatwell_status` indica que el conector no está conectado. Con el conector, usa las herramientas normales de agenda.
+
 Mientras Treatwell Pro siga siendo la agenda responsable de Mrs Curly, una hora solo existe si está libre en Treatwell. poliHair es la copia donde se trabaja la ficha, la conversación y el seguimiento, y recibe la cita después. Esta guía explica cómo leer los huecos de Treatwell en segundos y en qué orden registrar.
 
 ## Cuándo aplica
