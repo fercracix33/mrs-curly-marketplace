@@ -45,9 +45,17 @@ Ante un envío incierto conserva clave y argumentos; consulta el recibo antes de
 
 Para vincular una conversación usa la clienta real identificada; `conversation_client_create` solo cuando se haya solicitado crear esa ficha y no exista una coincidencia que deba resolverse.
 
+No todas las conversaciones son de clientas. `conversation_get` indica `contactKind`: `client` (ficha en `client`), `supplier` (proveedor en `supplier`), `other` (colega, conocido) o vacío si está sin clasificar. Si escribe un proveedor (distribuidor, técnico, comercial), usa `conversation_supplier_create` o `suppliers_list` + `conversation_update.supplierId`; para colegas o conocidos, `conversation_update` con `contactKind: "other"`. No crees fichas de clienta ni reservas para ellos: responder nunca requiere ficha, y sus borradores no se comprueban contra catálogo ni agenda. `clients_search` solo busca clientas.
+
 ## Recorrido rápido de bandeja
 
 Usa `inbox_get_summary` con `view: "unanswered"` para saber a quién falta contestar. `view: "unread"` es lectura de la usuaria y no equivale a pendiente de respuesta. No uses prioridad/clasificación ni cambies estados para simular una respuesta.
+
+## Cerrar sin responder
+
+`conversations_close` quita de «Sin responder» las conversaciones que no necesitan respuesta, sin enviar nada a la clienta. Cierra solo si el último mensaje de la clienta no pide nada: un agradecimiento («gracias», «ok», «vale»), un emoji o una reacción, o la confirmación de una cita que ya está en la agenda (compruébala con `conversation_get`). Motivo: `thanks`, `confirmation` u `other` con `note` breve. Si contiene una pregunta, una petición, un cambio, un audio, un adjunto o cualquier duda, déjala pendiente y respóndela o consúltala con la usuaria.
+
+Lee cada conversación antes de cerrarla y pasa su `lastMessageSequence` como `expectedSequence`; puedes agrupar hasta 100 en una llamada. Revisa `results`: `changed` significa que ha llegado un mensaje nuevo y la conversación sigue abierta (relee); `answered` y `already_closed` no requieren nada. Un mensaje posterior de la clienta la reabre sola. `view: "closed"` lista las cerradas y `conversation_reopen` devuelve una a «Sin responder». Informa a la usuaria de cuántas has cerrado y por qué.
 
 `conversation_get` devuelve primero los mensajes recientes, ficha, próximas citas, citas vinculadas y `lastMessageSequence`. Su lectura no marca mensajes como leídos. Para historia anterior pasa `olderCursor` como `before`; evita volver a descargar páginas ya leídas. Las colecciones de contexto son acotadas; consulta agenda si necesitas más citas.
 
