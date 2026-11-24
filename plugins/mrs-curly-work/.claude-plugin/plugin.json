@@ -1,8 +1,8 @@
 {
   "name": "mrs-curly-work",
   "displayName": "Mrs Curly",
-  "version": "1.4.2",
-  "description": "Agenda, clientas, bandeja, finanzas, inventario y equipo de Mrs Curly: siete skills y el MCP remoto de poliHair con autorización OAuth individual.",
+  "version": "2.0.0",
+  "description": "Agenda, clientas, bandeja, finanzas, inventario y equipo de Mrs Curly: una skill que carga las normas y la memoria del servidor y el MCP remoto de poliHair con autorización OAuth individual.",
   "author": {
     "name": "fercracix33"
   },

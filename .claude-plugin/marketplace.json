@@ -8,7 +8,7 @@
     {
       "name": "mrs-curly-work",
       "source": "./plugins/mrs-curly-work",
-      "description": "Agenda, clientas, bandeja, finanzas, inventario y equipo del salón con siete skills y el MCP remoto de poliHair (OAuth individual).",
+      "description": "Agenda, clientas, bandeja, finanzas, inventario y equipo del salón con una skill que carga las normas y la memoria del servidor, y el MCP remoto de poliHair (OAuth individual).",
       "category": "productivity",
       "tags": [
         "peluqueria",
